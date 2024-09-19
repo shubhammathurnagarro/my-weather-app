@@ -30,16 +30,11 @@ get clone https://github.com/shubhammathurnagarro/my-weather-app
 - **Run the app:** Build and run the app on an Android emulator or device.
 
 
-## Usage
+### Usage
 
 - **Home Screen:** The app will display the weather for the default location.
 - **Search:** Use the search bar to find weather information for other cities.
 - **Forecast:** Scroll down to view the 5-day forecast.
-
-
-## License
-
-This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/)
 
 
 ## Screenshots
@@ -47,3 +42,9 @@ This project is licensed under the [MIT](https://choosealicense.com/licenses/mit
 App Screenshot 1 | App Screenshot 2
 :-:|:-:
 ![App Screenshot 1](https://i.imgur.com/fCY3KqJ.jpeg) | ![App Screenshot 1](https://i.imgur.com/R0nzodu.jpeg)
+
+
+## License
+
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/)
+
