@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background_gradient">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/white"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        style="@style/ErrorTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/error_text"
+        tools:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_vertical"
+                app:cardCornerRadius="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    app:queryHint="@string/search_city"
+                    app:iconifiedByDefault="false" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_now"
+                style="@style/PrimaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:text="@string/now"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_search" />
+
+            <TextView
+                android:id="@+id/tv_temperature"
+                style="@style/PrimaryTextViewStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_now"
+                app:layout_constraintTop_toBottomOf="@id/tv_now"
+                tools:text="34°" />
+
+            <TextView
+                android:id="@+id/tv_high_low"
+                style="@style/SecondaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_temperature"
+                app:layout_constraintTop_toBottomOf="@id/tv_temperature"
+                tools:text="High: 35° | Low: 26°" />
+
+            <TextView
+                android:id="@+id/tv_weather"
+                style="@style/PrimaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/tv_feels_like"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_now"
+                tools:text="Mostly Sunny" />
+
+            <TextView
+                android:id="@+id/tv_feels_like"
+                style="@style/SecondaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_humidity"
+                app:layout_constraintEnd_toEndOf="@id/tv_weather"
+                app:layout_constraintTop_toBottomOf="@id/tv_weather"
+                tools:text="Feels like 40°" />
+
+            <TextView
+                android:id="@+id/tv_humidity"
+                style="@style/SecondaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                app:layout_constraintBottom_toTopOf="@id/tv_wind_speed"
+                app:layout_constraintEnd_toEndOf="@id/tv_weather"
+                app:layout_constraintTop_toBottomOf="@id/tv_feels_like"
+                tools:text="Humidity: 50%" />
+
+            <TextView
+                android:id="@+id/tv_wind_speed"
+                style="@style/SecondaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tv_high_low"
+                app:layout_constraintEnd_toEndOf="@id/tv_weather"
+                app:layout_constraintTop_toBottomOf="@id/tv_humidity"
+                tools:text="Wind Speed: 4 m/s" />
+
+            <TextView
+                android:id="@+id/tv_forecast"
+                style="@style/PrimaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:text="@string/five_day_forecast"
+                app:layout_constraintStart_toStartOf="@id/tv_now"
+                app:layout_constraintTop_toBottomOf="@id/tv_high_low" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lv_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                tools:listitem="@layout/item_forecast_list"
+                tools:itemCount="5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
