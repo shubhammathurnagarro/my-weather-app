@@ -137,9 +137,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/lv_forecast"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dp_5"
                 app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/item_forecast_list"
                 tools:itemCount="5" />
 

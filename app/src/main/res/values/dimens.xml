@@ -8,6 +8,7 @@
     <dimen name="margin_horizontal">20dp</dimen>
     <dimen name="margin_vertical">20dp</dimen>
     <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="margin_weather_forecast">60dp</dimen>
