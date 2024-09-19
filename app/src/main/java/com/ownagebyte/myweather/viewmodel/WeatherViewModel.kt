@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ownagebyte.myweather.data.api.Response
+import com.ownagebyte.myweather.data.api.WeatherApiService
 import com.ownagebyte.myweather.data.model.WeatherForecastResponse
 import com.ownagebyte.myweather.data.repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 class WeatherViewModel : ViewModel() {
-    private val weatherRepository = WeatherRepository()
+    private val weatherRepository = WeatherRepository(WeatherApiService.instance)
     private val _weatherResponseLiveData = MutableLiveData<Response<WeatherForecastResponse>>()
     val weatherResponseLiveData: LiveData<Response<WeatherForecastResponse>> =
         _weatherResponseLiveData
