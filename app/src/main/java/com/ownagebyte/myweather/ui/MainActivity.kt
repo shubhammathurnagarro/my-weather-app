@@ -1,10 +1,9 @@
 package com.ownagebyte.myweather.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,17 +29,9 @@ class MainActivity : BaseActivity() {
     private val weatherForecastList: MutableList<WeatherForecast> = mutableListOf()
     private val recentSearchesList: MutableList<WeatherSummary> = mutableListOf()
 
-    override fun setContentView() {
-        ActivityMainBinding.inflate(layoutInflater).also {
-            binding = it
-            setContentView(binding.root)
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.mainView) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    override fun setContentView(): View {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,6 +159,8 @@ class MainActivity : BaseActivity() {
 
     private fun showProgressBar(show: Boolean = true) {
         binding.progressBar.isVisible = show
+        binding.searchView.isVisible = !show
+
         if (show) {
             binding.tvError.isVisible = false
             binding.mainView.isVisible = false

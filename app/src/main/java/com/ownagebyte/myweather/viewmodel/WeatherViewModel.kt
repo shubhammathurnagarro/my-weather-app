@@ -9,8 +9,8 @@ import com.ownagebyte.myweather.data.api.Response
 import com.ownagebyte.myweather.data.api.WeatherApiService
 import com.ownagebyte.myweather.data.model.WeatherForecastResponse
 import com.ownagebyte.myweather.data.model.WeatherSummary
-import com.ownagebyte.myweather.data.repository.WeatherRepository
 import com.ownagebyte.myweather.data.repository.SharedPreferences
+import com.ownagebyte.myweather.data.repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,6 +51,8 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 var exception: Exception? = null
                 if (ex.code() == 504) {
                     exception = Exception("Gateway timeout! Please check your internet connection if problem persists.")
+                } else if (ex.code() == 404) {
+                    exception = Exception("No data found. Try another city.")
                 }
                 _weatherResponseLiveData.value = Response.Error(exception ?: ex)
             }

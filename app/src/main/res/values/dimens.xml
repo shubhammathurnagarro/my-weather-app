@@ -11,6 +11,7 @@
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="margin_weather_forecast">60dp</dimen>
     <dimen name="weather_icon_size">40dp</dimen>
+    <dimen name="search_card_corner_radius">24dp</dimen>
 
     <dimen name="dp_15">15dp</dimen>
     <dimen name="dp_10">10dp</dimen>
