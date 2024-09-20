@@ -47,7 +47,12 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 updateRecentSearches(city, response.getWeatherSummary())
             } catch (ex: HttpException) {
                 ex.printStackTrace()
-                _weatherResponseLiveData.value = Response.Error(ex)
+
+                var exception: Exception? = null
+                if (ex.code() == 504) {
+                    exception = Exception("Gateway timeout! Please check your internet connection if problem persists.")
+                }
+                _weatherResponseLiveData.value = Response.Error(exception ?: ex)
             }
         }
     }
