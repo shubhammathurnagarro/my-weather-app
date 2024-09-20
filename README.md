@@ -18,6 +18,7 @@ This Android application provides real-time weather information and a 5-day fore
 - **Kotlin:** Programming language for Android app development.
 - **MVVM (Model-View-ViewModel):** Architectural pattern for separating concerns in the app.
 - **Retrofit:** A type-safe REST client for Android and Java.
+- **Glide:** Image loading and caching library.
 - **Coroutines:** A concurrency library for writing asynchronous code in Kotlin.
 - **OpenWeatherMap API:** Weather data provider.
 
