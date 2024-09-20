@@ -10,7 +10,7 @@ import com.ownagebyte.myweather.data.api.WeatherApiService
 import com.ownagebyte.myweather.data.model.WeatherForecastResponse
 import com.ownagebyte.myweather.data.model.WeatherSummary
 import com.ownagebyte.myweather.data.repository.WeatherRepository
-import com.ownagebyte.myweather.utils.SharedPreferencesUtil
+import com.ownagebyte.myweather.data.repository.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,7 +30,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
     fun initWeatherData() {
         viewModelScope.launch {
-            val city = SharedPreferencesUtil.getLastSearchedCity(getApplication())
+            val city = SharedPreferences.getLastSearchedCity(getApplication())
             _lastSearchedCityLiveData.value = city
         }
     }
@@ -53,11 +53,11 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun updateRecentSearches(currentCity: String, weatherSummary: WeatherSummary) {
-        val lastSearched = SharedPreferencesUtil.getLastSearchedCity(getApplication())
-        SharedPreferencesUtil.setLastSearchedCity(getApplication(), currentCity, weatherSummary)
+        val lastSearched = SharedPreferences.getLastSearchedCity(getApplication())
+        SharedPreferences.setLastSearchedCity(getApplication(), currentCity, weatherSummary)
 
         if (currentCity != lastSearched) {
-            SharedPreferencesUtil.addRecentSearchedCity(getApplication(), lastSearched, currentCity)
+            SharedPreferences.addRecentSearchedCity(getApplication(), lastSearched, currentCity)
         }
         getRecentSearches()
     }
@@ -68,7 +68,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 val response: List<WeatherSummary>
                 _recentSearchedCitiesLiveData.value = Response.Loading
 
-                withContext(Dispatchers.IO) { response = SharedPreferencesUtil.getRecentSearchedCitiesData(getApplication()) }
+                withContext(Dispatchers.IO) { response = SharedPreferences.getRecentSearchedCitiesData(getApplication()) }
 
                 _recentSearchedCitiesLiveData.value = Response.Success(response)
             } catch (ex: Exception) {

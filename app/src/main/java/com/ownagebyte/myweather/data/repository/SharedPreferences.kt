@@ -1,11 +1,11 @@
-package com.ownagebyte.myweather.utils
+package com.ownagebyte.myweather.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.ownagebyte.myweather.data.model.WeatherSummary
 
-object SharedPreferencesUtil {
+object SharedPreferences {
     private const val SHARED_PREFS_NAME = "shared_prefs"
     private const val LAST_CITY_NAME = "last_city_name"
     private const val RECENT_SEARCHES = "recent_searches"
