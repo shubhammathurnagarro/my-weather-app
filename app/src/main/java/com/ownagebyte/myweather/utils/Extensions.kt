@@ -1,5 +1,7 @@
 package com.ownagebyte.myweather.utils
 
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.ownagebyte.myweather.data.model.WeatherForecast
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -23,4 +25,8 @@ fun List<WeatherForecast>.filterUpcomingDays(): List<WeatherForecast> {
         val currDate = calendar.get(Calendar.DAY_OF_MONTH)
         currDate != lastDate.also { lastDate = currDate }
     }
+}
+
+fun ImageView.loadNetworkImage(url: String?) {
+    Glide.with(this).load(url).into(this)
 }

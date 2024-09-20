@@ -3,9 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gradient_start_color">#003658</color>
-    <color name="gradient_end_color">#014a75</color>
-    <color name="text_color_primary">#d3e2ff</color>
-    <color name="text_color_secondary">#afbfcf</color>
-    <color name="list_view_item_background">#011d33</color>
+    <color name="gradient_start_color">#009688</color>
+    <color name="gradient_end_color">#58C8BE</color>
+    <color name="text_color_primary">#B5FFF7</color>
+    <color name="text_color_secondary">#D8F2EE</color>
+    <color name="list_view_item_background">#008579</color>
 </resources>

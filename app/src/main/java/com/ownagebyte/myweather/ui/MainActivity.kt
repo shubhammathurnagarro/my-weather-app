@@ -7,20 +7,28 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ownagebyte.myweather.R
 import com.ownagebyte.myweather.data.api.Response
 import com.ownagebyte.myweather.data.model.WeatherForecast
 import com.ownagebyte.myweather.data.model.WeatherForecastResponse
+import com.ownagebyte.myweather.data.model.WeatherSummary
 import com.ownagebyte.myweather.databinding.ActivityMainBinding
+import com.ownagebyte.myweather.ui.adapter.RecentSearchListAdapter
 import com.ownagebyte.myweather.ui.adapter.WeatherForecastListAdapter
+import com.ownagebyte.myweather.utils.HorizontalSpaceDecoration
 import com.ownagebyte.myweather.utils.filterUpcomingDays
 import com.ownagebyte.myweather.utils.format
+import com.ownagebyte.myweather.utils.loadNetworkImage
 import com.ownagebyte.myweather.viewmodel.WeatherViewModel
 import kotlin.math.roundToInt
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<WeatherViewModel>()
+
+    private val weatherForecastList: MutableList<WeatherForecast> = mutableListOf()
+    private val recentSearchesList: MutableList<WeatherSummary> = mutableListOf()
 
     override fun setContentView() {
         ActivityMainBinding.inflate(layoutInflater).also {
@@ -38,11 +46,49 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val defaultCity = "Dubai"
+        initViews()
+        initObservers()
+        viewModel.initWeatherData()
+    }
 
+    private fun initViews() {
+        setupWeatherForecastView()
+        setupRecentSearchesView()
         setupSearchView()
-        binding.searchView.setQuery(defaultCity, true)
+    }
 
+    private fun setupWeatherForecastView() {
+        binding.rvForecast.layoutManager = LinearLayoutManager(this)
+        binding.rvForecast.adapter = WeatherForecastListAdapter(weatherForecastList)
+    }
+
+    private fun updateWeatherForecastView(forecastList: List<WeatherForecast>) {
+        weatherForecastList.clear()
+        weatherForecastList.addAll(forecastList.filterUpcomingDays())
+        binding.rvForecast.adapter?.notifyDataSetChanged()
+    }
+
+    private fun setupRecentSearchesView() {
+        binding.rvRecentSearches.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.rvRecentSearches.addItemDecoration(HorizontalSpaceDecoration(resources.getDimension(R.dimen.margin_horizontal).toInt()))
+        binding.rvRecentSearches.adapter = RecentSearchListAdapter(recentSearchesList) { city ->
+            binding.searchView.setQuery(city, true)
+        }
+    }
+
+    private fun updateRecentSearchesView(recentSearches: List<WeatherSummary>) {
+        if (recentSearches.isNotEmpty()) {
+            binding.groupRecentSearches.isVisible = true
+            recentSearchesList.clear()
+            recentSearchesList.addAll(recentSearches)
+            binding.rvRecentSearches.adapter?.notifyDataSetChanged()
+            binding.rvRecentSearches.scrollToPosition(0)
+        } else {
+            binding.groupRecentSearches.isVisible = false
+        }
+    }
+
+    private fun initObservers() {
         viewModel.weatherResponseLiveData.observe(this) { response ->
             when (response) {
                 is Response.Loading -> {
@@ -58,6 +104,22 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+
+        viewModel.recentSearchedCitiesLiveData.observe(this) { response ->
+            when (response) {
+                is Response.Loading, is Response.Error -> {
+                    binding.groupRecentSearches.isVisible = false
+                }
+
+                is Response.Success -> {
+                    updateRecentSearchesView(response.data)
+                }
+            }
+        }
+
+        viewModel.lastSearchedCityLiveData.observe(this) { lastSearchedCity ->
+            binding.searchView.setQuery(lastSearchedCity, true)
+        }
     }
 
     private fun setupMainView(weatherResponse: WeatherForecastResponse) {
@@ -67,7 +129,7 @@ class MainActivity : BaseActivity() {
 
         if (weatherResponse.weatherList.isNotEmpty()) {
             setupCurrentTemperatureView(weatherResponse.weatherList.first())
-            setupWeatherForecast(weatherResponse.weatherList)
+            updateWeatherForecastView(weatherResponse.weatherList)
         } else {
             showErrorMessage("Weather information missing from API")
         }
@@ -82,20 +144,19 @@ class MainActivity : BaseActivity() {
             binding.tvHumidity.text = getString(R.string.humidity_text, it.humidity)
         }
 
-        binding.tvWeather.text = currentWeather.weather.first().type
+        currentWeather.weather.firstOrNull()?.let { weather ->
+            binding.ivWeatherIcon.loadNetworkImage(weather.iconUrl)
+            binding.tvWeather.text = weather.weatherType
+        }
+
         binding.tvWindSpeed.text =
             getString(R.string.wind_speed_text, currentWeather.wind.speed.roundToInt().toString())
-    }
-
-    private fun setupWeatherForecast(weatherList: List<WeatherForecast>) {
-        binding.lvForecast.layoutManager = LinearLayoutManager(this)
-        binding.lvForecast.adapter = WeatherForecastListAdapter(weatherList.filterUpcomingDays())
     }
 
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { viewModel.getWeatherForecast(it) }
+                query?.trim()?.let { viewModel.getWeatherForecast(it) }
                 return false
             }
 

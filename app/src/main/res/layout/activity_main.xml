@@ -82,11 +82,21 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_temperature"
                 tools:text="High: 35° | Low: 26°" />
 
+            <ImageView
+                android:id="@+id/iv_weather_icon"
+                android:layout_width="@dimen/weather_icon_size"
+                android:layout_height="@dimen/weather_icon_size"
+                app:layout_constraintBottom_toBottomOf="@id/tv_weather"
+                app:layout_constraintEnd_toStartOf="@id/tv_weather"
+                app:layout_constraintTop_toTopOf="@id/tv_weather"
+                tools:src="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/tv_weather"
                 style="@style/PrimaryTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_marginEnd="@dimen/margin_horizontal"
                 app:layout_constraintBottom_toTopOf="@id/tv_feels_like"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -135,14 +145,40 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_high_low" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lv_forecast"
+                android:id="@+id/rv_forecast"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
                 app:layout_constraintTop_toBottomOf="@id/tv_forecast"
-                app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/item_forecast_list"
                 tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/tv_recent_searches"
+                style="@style/PrimaryTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:text="@string/recent_searches"
+                app:layout_constraintStart_toStartOf="@id/tv_now"
+                app:layout_constraintTop_toBottomOf="@id/rv_forecast" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recent_searches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                app:layout_constraintTop_toBottomOf="@id/tv_recent_searches"
+                tools:listitem="@layout/item_recent_search"
+                tools:itemCount="5"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_recent_searches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:constraint_referenced_ids="tv_recent_searches,rv_recent_searches" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

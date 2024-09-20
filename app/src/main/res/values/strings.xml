@@ -7,6 +7,6 @@
     <string name="wind_speed_text">Wind Speed: %s m/s</string>
     <string name="city">City</string>
     <string name="five_day_forecast">5-day forecast</string>
-    <string name="high_low_text_forecast">%s/%s</string>
     <string name="search_city">Search city</string>
+    <string name="recent_searches">Recent Searches</string>
 </resources>

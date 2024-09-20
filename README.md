@@ -1,6 +1,6 @@
 # My Weather
 
-This Android application provides real-time weather information and a 5-day forecast using the OpenWeatherMap API. The app is built using Kotlin, MVVM architecture, Retrofit for network requests, and Coroutines for asynchronous operations.
+This Android application provides real-time weather information and a 5-day forecast using the OpenWeatherMap API. Developed in Kotlin, it adheres to the MVVM architectural pattern for optimal code organization and maintainability. The app utilizes LiveData to observe data changes and automatically update the UI, providing a real-time view of the weather information. The app is built using Retrofit for network requests, and Coroutines for asynchronous operations.
 
 
 ### Key Features
@@ -20,28 +20,28 @@ This Android application provides real-time weather information and a 5-day fore
 - **OpenWeatherMap API:** Weather data provider.
 
 
-## Getting Started
+## Steps to setup
 
-- **Clone the repository**
-```bash
-get clone https://github.com/shubhammathurnagarro/my-weather-app
-```
-- **Open in Android Studio:** Open the cloned project in Android Studio.
-- **Run the app:** Build and run the app on an Android emulator or device.
+1. **Clone the repository:** Open your terminal or command prompt and navigate to your desired project directory. Then, run the following command to clone this repository:
+    ```bash
+    get clone https://github.com/shubhammathurnagarro/my-weather-app
+    ```
+2. **Open in Android Studio:** Launch Android Studio and go to File > Open. Navigate to the folder containing the cloned project (`MyWeather`) and select it.Open the cloned project in Android Studio.
+3. **Run the app:** Click the **Run** button (typically a green play icon) in the toolbar. Android Studio will build and deploy the app onto your chosen device or emulator.
 
 
-### Usage
+## Usage
 
 - **Home Screen:** The app will display the weather for the default location.
 - **Search:** Use the search bar to find weather information for other cities.
 - **Forecast:** Scroll down to view the 5-day forecast.
 
 
-## Screenshots
+### Screenshots
 
 App Screenshot 1 | App Screenshot 2
 :-:|:-:
-![App Screenshot 1](https://i.imgur.com/fCY3KqJ.jpeg) | ![App Screenshot 1](https://i.imgur.com/R0nzodu.jpeg)
+![App Screenshot 1](https://i.imgur.com/X14lyaU.png) | ![App Screenshot 1](https://i.imgur.com/bHvSTaV.png)
 
 
 ## License

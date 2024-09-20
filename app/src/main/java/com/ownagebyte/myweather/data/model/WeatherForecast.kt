@@ -3,7 +3,6 @@ package com.ownagebyte.myweather.data.model
 import com.google.gson.annotations.SerializedName
 import com.ownagebyte.myweather.utils.format
 
-// icon url http://openweathermap.org/img/w/10d.png
 data class WeatherForecast(
     @SerializedName("dt") val date: Long,
     val main: MainData,
@@ -21,12 +20,22 @@ data class MainData(
     fun getMaxMinTemperature(): String {
         return "High: ${tempMax.format()} | Low: ${tempMin.format()}"
     }
+
+    fun getMaxMinTemperatureShort(): String {
+        return "${tempMax.format()}/${tempMin.format()}"
+    }
 }
 
 data class WeatherData(
-    @SerializedName("main") val type: String,
+    val main: String,
     val icon: String,
-)
+) {
+    val weatherType: String
+        get() = if (main == "Clouds") "Cloudy" else main
+
+    val iconUrl: String
+        get() = "https://openweathermap.org/img/wn/${icon.replace("n", "d")}@2x.png"
+}
 
 data class WindData(
     val speed: Float,

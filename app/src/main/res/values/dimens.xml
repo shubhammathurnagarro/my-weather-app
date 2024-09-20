@@ -4,12 +4,17 @@
     <dimen name="error_text_size">17sp</dimen>
     <dimen name="primary_text_size_large">60sp</dimen>
     <dimen name="secondary_text_size">14sp</dimen>
+    <dimen name="recent_search_list_temp_text_size">20sp</dimen>
 
     <dimen name="margin_horizontal">20dp</dimen>
     <dimen name="margin_vertical">20dp</dimen>
-    <dimen name="dp_10">10dp</dimen>
-    <dimen name="dp_20">20dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
-    <dimen name="dp_5">5dp</dimen>
     <dimen name="margin_weather_forecast">60dp</dimen>
+    <dimen name="weather_icon_size">40dp</dimen>
+
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
 </resources>
